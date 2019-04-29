@@ -18,6 +18,7 @@ class CreateManListTable extends Migration
             $table->integer('man_id')->comment('漫画ID');
             $table->string('title')->comment('标题');
             $table->json('chapter')->comment('章节');
+            $table->tinyInteger('sort')->comment('排序');
             $table->timestamps();
         });
     }
