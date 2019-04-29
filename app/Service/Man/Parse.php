@@ -65,9 +65,10 @@ class Parse
         preg_match_all('/<img class="lazy" data-original="(.*)"/', $html, $image);
         $image = $image[1] ?? [];
 
-        preg_match('/<span>(第.*话)<\/span>/', $html, $title);
+        preg_match('/<span>(第(.*)话)<\/span>/', $html, $title);
+        $sort  = $title[2];
         $title = $title[1] ?? '';
 
-        return compact('title', 'image');
+        return compact('title', 'image', 'sort');
     }
 }

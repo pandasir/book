@@ -53,7 +53,7 @@ class App extends AppAbstract implements AppInterface
                 }
             });
         });
-        $promise->wait();
+        $promise && $promise->wait();
         return $data;
     }
 }

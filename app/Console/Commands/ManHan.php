@@ -97,8 +97,9 @@ class ManHan extends Command
                 'title' => $list['title'],
                 'man_id'    => $manId,
                 'chapter'   => json_encode($list['image']),
-                'insert_at' => date('Y-m-d H:i:s'),
-                'update_at' => date('Y-m-d H:i:s'),
+                'sort'      => $list['sort'],
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ];
         });
         ManList::query()->insert($insert);
