@@ -31,8 +31,9 @@ class App extends AppAbstract implements AppInterface
         $promise = null;
         $data = [];
         array_walk($list, function ($url, $key) use (&$promise, &$data) {
-            $promise = $this->http->getAsync($url)->then(function (Response $response) use (&$data, $key) {
+            $promise = $this->http->getAsync($url)->then(function (Response $response) use (&$data, $key, $url) {
                 $data[$key] = $this->parse->parseInfo($response->getBody()->getContents());
+                $data[$key]['url'] = $url;
             });
         });
         $promise->wait();
@@ -46,13 +47,13 @@ class App extends AppAbstract implements AppInterface
          */
         $promise = null;
         $data = [];
-        array_walk($list, function ($url, $key) use (&$promise, &$data) {
+        foreach ( $list as $key => $url ) {
             $promise = $this->http->getAsync($url)->then(function (Response $response) use (&$data, $key) {
-                if( $response->getStatusCode() === 200 ) {
+                if ($response->getStatusCode() === 200) {
                     $data[$key] = $this->parse->parseImage($response->getBody()->getContents());
                 }
             });
-        });
+        }
         $promise && $promise->wait();
         return $data;
     }

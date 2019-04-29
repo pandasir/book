@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Man extends Model
+class ManHan extends Model
 {
-    public $table = 'man';
+    public $table = 'man_han';
 
     public $guarded = [];
 
     public $timestamps = true;
 
-    public function manHan()
+    public function man()
     {
-        return $this->hasOne('App\Models\ManHan', 'man_id', 'id');
+        return $this->belongsTo('App\Models\Man');
     }
 }
