@@ -62,11 +62,27 @@ class Parse
 
     public function parseImage($html)
     {
+        $numMap = [
+            '一' => 1,
+            '二' => 2,
+            '三' => 3,
+            '四' => 4,
+            '五' => 5,
+            '六' => 6,
+            '七' => 7,
+            '八' => 8,
+            '九' => 9,
+            '十' => 10,
+        ];
+
         preg_match_all('/<img class="lazy" data-original="(.*)"/', $html, $image);
         $image = $image[1] ?? [];
 
-        preg_match('/<span>(第(.*)话)<\/span>/', $html, $title);
-        $sort  = $title[2];
+        preg_match('/<span>(第(.*?)话.*?)<\/span>/', $html, $title);
+
+        $sort  = $title[2] ?? 1;
+        !is_numeric($sort) && $sort = $numMap[$sort];
+
         $title = $title[1] ?? '';
 
         return compact('title', 'image', 'sort');
