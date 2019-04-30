@@ -74,14 +74,15 @@ class ManHanList extends Command
             ], array_except($info, ['list', 'url']));
             $man->save();
 
-            $manHan = ManDetail::query()->updateOrCreate([
-                'man_id' => $man->id,
+            $manDetail = ManDetail::query()->updateOrCreate([
+                'man_id'        => $man->id,
+                'platform_id'   => 1,
             ], [
                 'url'           => $info['url'],
                 'platform_id'   => 1,
                 'chapter_url'   => json_encode($info['list'])
             ]);
-            $manHan->save();
+            $manDetail->save();
             $this->logWrite('name:'.$info['name'].' save success!');
         });
         return true;

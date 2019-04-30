@@ -67,7 +67,10 @@ class ManHanImage extends Command
     public function saveListImage($data, $manId)
     {
         $insert = [];
-        ManList::query()->where('man_id', $manId)->delete();
+        ManList::query()
+            ->where('man_id', $manId)
+            ->where('platform_id', 1)
+            ->delete();
         array_walk($data, function ($list, $key) use ($manId, &$insert) {
             $insert[$key] = [
                 'title'         => $list['title'],
