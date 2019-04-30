@@ -3,9 +3,10 @@
 namespace App\Console\Commands\ManHan;
 
 use App\Models\Man;
+use App\Models\ManDetail;
 use App\Models\ManHan;
 use App\Service\LogTrait;
-use App\Service\Man\App;
+use App\Service\Man\ManHan\App;
 use Illuminate\Console\Command;
 
 class ManHanList extends Command
@@ -73,11 +74,12 @@ class ManHanList extends Command
             ], array_except($info, ['list', 'url']));
             $man->save();
 
-            $manHan = ManHan::query()->updateOrCreate([
+            $manHan = ManDetail::query()->updateOrCreate([
                 'man_id' => $man->id,
             ], [
-                'url' => $info['url'],
-                'chapter_url' => json_encode($info['list'])
+                'url'           => $info['url'],
+                'platform_id'   => 1,
+                'chapter_url'   => json_encode($info['list'])
             ]);
             $manHan->save();
             $this->logWrite('name:'.$info['name'].' save success!');

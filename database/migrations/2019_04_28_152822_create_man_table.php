@@ -19,7 +19,7 @@ class CreateManTable extends Migration
             $table->string('image')->comment('漫画封面');
             $table->string('author')->comment('作者');
             $table->text('desc')->comment('描述');
-            $table->string('status')->comment('连载中');
+            $table->string('status')->comment('状态');
             $table->string('pop')->comment('人气');
             $table->string('class')->comment('分类');
             $table->timestamps();

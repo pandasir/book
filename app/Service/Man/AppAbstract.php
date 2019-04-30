@@ -7,7 +7,6 @@
 
 namespace App\Service\Man;
 
-
 abstract class AppAbstract
 {
     /**
@@ -20,7 +19,6 @@ abstract class AppAbstract
     /**
      * Html解析器
      *
-     * @var Parse
      */
     public $parse;
 
@@ -29,8 +27,6 @@ abstract class AppAbstract
      */
     public function __construct()
     {
-        $this->http     = Http::getInstance();
-        $this->parse    = Parse::getInstance();
     }
 
 }

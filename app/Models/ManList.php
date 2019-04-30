@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ManHanList extends Model
+class ManList extends Model
 {
-    public $table = 'man_han_list';
+    public $table = 'man_list';
 
     public $guarded = [];
 

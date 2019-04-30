@@ -13,9 +13,10 @@ class CreateManHanTable extends Migration
      */
     public function up()
     {
-        Schema::create('man_han', function (Blueprint $table) {
+        Schema::create('man_detail', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('man_id')->comment('漫画ID');
+            $table->tinyInteger('platform_id')->comment('平台ID');
             $table->string('url')->comment('漫画地址');
             $table->json('chapter_url')->comment('章节URL');
             $table->timestamps();

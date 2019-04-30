@@ -13,4 +13,6 @@ interface AppInterface
     public function list($url);
 
     public function info($list);
+
+    public function image($list);
 }

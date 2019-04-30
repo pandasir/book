@@ -5,8 +5,10 @@
  * @since: 19-4-29
  */
 
-namespace App\Service\Man;
+namespace App\Service\Man\ManHan;
 
+use App\Service\Man\AppAbstract;
+use App\Service\Man\AppInterface;
 use GuzzleHttp\Promise\Promise;
 use GuzzleHttp\Psr7\Response;
 
@@ -15,6 +17,8 @@ class App extends AppAbstract implements AppInterface
     public function __construct()
     {
         parent::__construct();
+        $this->http     = \App\Service\Man\ManHan\Http::getInstance();
+        $this->parse    = \App\Service\Man\ManHan\Parse::getInstance();
     }
 
     public function list($url)

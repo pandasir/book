@@ -5,7 +5,7 @@
  * @since: 19-4-29
  */
 
-namespace App\Service\Man;
+namespace App\Service\Man\ManHan;
 
 
 class Parse
