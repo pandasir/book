@@ -76,7 +76,8 @@ class ManHanList extends Command
             $manHan = ManHan::query()->updateOrCreate([
                 'man_id' => $man->id,
             ], [
-                'url' => $info['url']
+                'url' => $info['url'],
+                'chapter_url' => json_encode($info['list'])
             ]);
             $manHan->save();
             $this->logWrite('name:'.$info['name'].' save success!');

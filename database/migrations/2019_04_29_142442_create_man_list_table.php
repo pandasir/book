@@ -13,11 +13,11 @@ class CreateManListTable extends Migration
      */
     public function up()
     {
-        Schema::create('man_list', function (Blueprint $table) {
+        Schema::create('man_han_list', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('man_id')->comment('漫画ID');
             $table->string('title')->comment('标题');
-            $table->json('chapter')->comment('章节');
+            $table->json('image_url')->comment('章节');
             $table->tinyInteger('sort')->comment('排序');
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateManListTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('man_list');
+        Schema::dropIfExists('man_han_list');
     }
 }

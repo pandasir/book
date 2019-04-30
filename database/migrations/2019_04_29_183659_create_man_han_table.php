@@ -17,6 +17,7 @@ class CreateManHanTable extends Migration
             $table->increments('id');
             $table->integer('man_id')->comment('漫画ID');
             $table->string('url')->comment('漫画地址');
+            $table->json('chapter_url')->comment('章节URL');
             $table->timestamps();
         });
     }

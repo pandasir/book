@@ -2,9 +2,10 @@
 
 namespace App\Console\Commands\ManHan;
 
-use App\Console\Commands\ManHan;
 use App\Models\Man;
+use App\Models\ManHanList;
 use App\Service\LogTrait;
+use App\Service\Man\App;
 use Illuminate\Console\Command;
 
 class ManHanImage extends Command
@@ -44,9 +45,39 @@ class ManHanImage extends Command
     {
         try{
             $this->logName = $this->signature;
+            $app = new App();
+            \App\Models\ManHan::query()
+                ->select('man_id', 'chapter_url')
+                ->chunk(1, function ($result) use ($app) {
+                    $result = $result->toArray();
+                    $urls   = collect($result)->pluck('chapter_url')->map(function ($val) {
+                        return json_decode($val, true);
+                    })->collapse()->toArray();
+                    $manId = current($result)['man_id'];
+                    $imageList = $app->image($urls);
+                    $this->saveListImage($imageList, $manId);
+                });
         }catch (\Exception $e) {
             $this->logWrite($e->getMessage());
             $this->logWrite($e->getTraceAsString());
         }
+    }
+
+    public function saveListImage($data, $manId)
+    {
+        $insert = [];
+        ManHanList::query()->where('man_id', $manId)->delete();
+        array_walk($data, function ($list, $key) use ($manId, &$insert) {
+            $insert[$key] = [
+                'title'         => $list['title'],
+                'man_id'        => $manId,
+                'image_url'       => json_encode($list['image']),
+                'sort'          => $list['sort'],
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ];
+        });
+        ManHanList::query()->insert($insert);
+        $this->logWrite('man_id:'.$manId.' chapter num->'.count($insert).' save success!');
     }
 }

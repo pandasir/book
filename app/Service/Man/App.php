@@ -49,12 +49,10 @@ class App extends AppAbstract implements AppInterface
         $data = [];
         foreach ( $list as $key => $url ) {
             $promise = $this->http->getAsync($url)->then(function (Response $response) use (&$data, $key) {
-                if ($response->getStatusCode() === 200) {
-                    $data[$key] = $this->parse->parseImage($response->getBody()->getContents());
-                }
+                $data[$key] = $this->parse->parseImage($response->getBody()->getContents());
             });
         }
-        $promise && $promise->wait();
+        $promise->wait();
         return $data;
     }
 }
