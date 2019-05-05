@@ -41,7 +41,7 @@ class App extends AppAbstract implements AppInterface
                 $data[$key]['url'] = $url;
             });
         });
-        $promise->wait();
+        $promise && $promise->wait();
         return $data;
     }
 
