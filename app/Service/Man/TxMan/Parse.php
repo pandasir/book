@@ -33,6 +33,26 @@ class Parse
 
     public function parseInfo($html)
     {
+        preg_match('/<img src="(.*)" alt="(.*)" height="280" width="210"\/>/', $html, $match);
+        $image = $match[1];
+        $name  = $match[2];
+
+        preg_match('/<span class="first" style="padding-right: 10px;">作者：<em style="max-width: 168px;">(.*)&nbsp;.*<\/em><\/span>/', $html, $author);
+        $author = $author[1];
+
+        preg_match('/<p class="works-intro-short ui-text-gray9">\r\n(.*)<\/p>/', $html, $desc);
+        $desc = str_replace(' ', '', $desc[1] ?? '');
+
+        preg_match('/<label class="works-intro-status">(.*)<\/label>/', $html, $status);
+        $status = $status[1];
+
+        preg_match('/<span>人气：<em>(.*)<\/em><\/span>/', $html, $pop);
+        $pop = $pop[1];
+
+        preg_match_all('/<a target="_blank" title=".*：.*" href="(.*)">/', $html, $list);
+        $list = $list[1];
+
+        return compact('image', 'name', 'author', 'status', 'desc', 'pop', 'list');
     }
 
     public function parseImage($html)
